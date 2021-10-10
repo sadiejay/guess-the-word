@@ -24,3 +24,21 @@ var playAgain= document.querySelector('.play-again');
 
 // Magnolia is your starting word to test out the game 
 var word = 'magnolia';
+
+wordIPSymbol = function () {
+    const placeholderLetters = [];
+    for (const letter of word) {
+      console.log(letter);
+      placeholderLetters.push('●');
+    }
+    wordIP.innerText = placeholderLetters.join('');
+}
+
+wordIPSymbol (word);
+
+guessButton.addEventListener ('click', function (e) {
+    e.preventDefault() 
+    const inputVal = guessLetter.value;
+    console.log(inputVal);
+    guessLetter.value = '';
+});
