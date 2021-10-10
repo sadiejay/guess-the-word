@@ -25,6 +25,7 @@ var playAgain= document.querySelector('.play-again');
 // Magnolia is your starting word to test out the game 
 var word = 'magnolia';
 
+// Display our symbols as placeholders for the chosen word's letters
 wordIPSymbol = function () {
     const placeholderLetters = [];
     for (const letter of word) {
