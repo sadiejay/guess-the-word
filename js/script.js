@@ -25,6 +25,9 @@ var playAgain= document.querySelector('.play-again');
 // Magnolia is your starting word to test out the game 
 var word = 'magnolia';
 
+// Holds user's guessed letters
+var guessedLetters = [];
+
 // Display our symbols as placeholders for the chosen word's letters
 wordIPSymbol = function () {
     const placeholderLetters = [];
@@ -38,8 +41,39 @@ wordIPSymbol = function () {
 wordIPSymbol (word);
 
 guessButton.addEventListener ('click', function (e) {
-    e.preventDefault() 
-    const inputVal = guessLetter.value;
-    console.log(inputVal);
+    e.preventDefault(); 
+    message.innerText = '';
+    const guess = guessLetter.value;
+    const goodGuess = validateInput(guess);
+    if (goodGuess) {
+        makeGuess(guess);
+    }
     guessLetter.value = '';
+
 });
+
+//  check users input
+ const validateInput= function (input) {
+    const acceptedLetter = /[a-zA-Z]/;
+    if (input === '') {
+        message.innerText = "Hey! You forgot your letter!"
+    } else if (input.length > 1) {
+        message.innerText ='Oops! One letter at a time please!'
+    } else if (!input.match(acceptedLetter)) {
+       message.innerText = "That doesn't look like an Enligsh letter to me!"
+    } else {
+        return input;
+    }
+ }
+
+ const makeGuess = function (guess) {
+    //  transform input to uppercase
+    guess = guess.toUpperCase();
+     
+    if (guessedLetters.includes(guess)) {
+        message.innerText = 'Uh oh! You already guessed that letter! Try again.'
+    } else {
+        guessedLetters.push(guess);
+    }
+    console.log(guessedLetters);
+ }
