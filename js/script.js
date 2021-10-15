@@ -106,4 +106,14 @@ guessButton.addEventListener ('click', function (e) {
         }
     }
     wordIP.innerText = revealWord.join("");
+    winningGuess();
 };
+
+// verifies if player won
+const winningGuess = function () {
+    if (word.toUpperCase() === wordIP.innerText) {
+        message.classList.add = 'win';
+        message.innerHTML = '<p class="highlight">Yay! You found the right word! Congrats!</p>';
+        
+    }
+}
