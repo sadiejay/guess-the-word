@@ -75,6 +75,7 @@ guessButton.addEventListener ('click', function (e) {
     } else {
         guessedLetters.push(guess);
         showGuessedLetters();
+        updateWIP(guessedLetters);
     }
     console.log(guessedLetters);
  }
@@ -90,3 +91,19 @@ guessButton.addEventListener ('click', function (e) {
     }
 
  };
+
+ // function replaces circle symbols
+ const updateWIP = function (guessedLetters) {
+    let wordUpper = word.toUpperCase();
+    const wordArray = wordUpper.split('');
+    console.log(wordArray);
+    const revealWord = [];
+    for (const letter of wordArray) {
+        if (guessedLetters.includes(letter)) {
+        revealWord.push(letter.toUpperCase());
+        } else {
+        revealWord.push("●");
+        }
+    }
+    wordIP.innerText = revealWord.join("");
+};
