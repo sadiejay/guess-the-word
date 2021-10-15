@@ -1,5 +1,5 @@
 // The unordered list where the player’s guessed letters will appear.
-var guessList = document.querySelector('guessed-letters');
+var guessList = document.querySelector('.guessed-letters');
 
 // The button with the text “Guess!” in it.\
 var guessButton = document.querySelector('.guess');
@@ -74,6 +74,19 @@ guessButton.addEventListener ('click', function (e) {
         message.innerText = 'Uh oh! You already guessed that letter! Try again.'
     } else {
         guessedLetters.push(guess);
+        showGuessedLetters();
     }
     console.log(guessedLetters);
  }
+
+//  function updates the page with users' guesses
+ const showGuessedLetters = function () {
+    // clears list first
+    guessList.innerHTML = '';
+    for (const letter of guessedLetters) {
+        const li = document.createElement('li');
+        li.innerText = letter;
+        guessList.append(li);
+    }
+
+ };
