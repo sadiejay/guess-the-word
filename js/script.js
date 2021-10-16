@@ -158,4 +158,37 @@ const winningGuess = function () {
         message.classList.add('win');
         message.innerHTML = '<p class="highlight">Yay! You found the right word! Congrats!</p>';
     }
+    startOver();
 };
+
+const startOver = function () {
+    // button
+    guessButton.classList.add('hide');
+    // remaianig guesses
+    guessRemainingPara.classList.add('hide');
+    // undordered list
+    guessList.classList.add('hide');
+    // play again
+    playAgain.classList.remove('hide');
+};
+
+    // play again / reset
+playAgain.addEventListener('click', function() {
+    message.classList.remove('win');
+    remainingGuesses = 8;
+    guessedLetter = [];
+    guessRemainingSpan.innerText = `${remainingGuesses} guesses`;
+    guessList.innerHTML = "";
+    message.innerText = "";
+    getWord();
+
+    // button
+    guessButton.classList.add('hide');
+    // remaianig guesses
+    guessRemainingPara.classList.add('hide');
+    // undordered list
+    guessList.classList.add('hide');
+    // play again button
+    playAgain.classList.add('hide');
+
+});
