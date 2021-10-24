@@ -44,17 +44,23 @@ const getWord = async function () {
 
     const randomIndex = Math.floor(Math.random() * wordArray.length);
     // console.log(randomIndex);
-    let word = wordArray[randomIndex].trim();
-    
-    console.log(wordArray);
-    wordIPSymbol(word);
+    word = wordArray[randomIndex].trim();
+    // grab words less than 10 characters
+    if (word.length > 10) {
+        getWord();
+      } else {
+        wordIPSymbol(word);
+    // console.log(wordArray);
+      }
+
 
 };
 
-getWord(); 
 
 // Display our symbols as placeholders for the chosen word's letters
 const wordIPSymbol = function (word) {
+    // Focus on letter input
+    guessLetter.focus();
     const placeholderLetters = [];
     for (const letter of word) {
       console.log(letter);
@@ -63,8 +69,13 @@ const wordIPSymbol = function (word) {
     wordIP.innerText = placeholderLetters.join('');
 }
 
+// Start the game
+getWord(); 
+
 guessButton.addEventListener ('click', function (e) {
     e.preventDefault(); 
+    // Focus on letter input
+    guessLetter.focus();
     message.innerText = '';
     const guess = guessLetter.value;
     const goodGuess = validateInput(guess);
@@ -97,7 +108,7 @@ guessButton.addEventListener ('click', function (e) {
         message.innerText = 'Uh oh! You already guessed that letter! Try again.'
     } else {
         guessedLetters.push(guess);
-        guessesCount(guessedLetters);
+        guessesCount(guess);
         showGuessedLetters();
         updateWIP(guessedLetters);
     }
@@ -144,8 +155,10 @@ const guessesCount = function (guess) {
     }
     if (remainingGuesses === 0) {
         message.innerHTML = `Ooo sorry. Game Over! The word was <span class="highlight">${word}</span>.`;
+        startOver();
     } else if (remainingGuesses === 1) {
         guessRemainingSpan.innerText = `${remainingGuesses} guess left! Choose wisely.`
+        //! fix by adding another span around "remaining."
     } else {
         guessRemainingSpan.innerText = `${remainingGuesses} guesses`
     }
@@ -157,11 +170,13 @@ const winningGuess = function () {
     if (word.toUpperCase() === wordIP.innerText) {
         message.classList.add('win');
         message.innerHTML = '<p class="highlight">Yay! You found the right word! Congrats!</p>';
+        startOver();
     }
-    startOver();
 };
 
 const startOver = function () {
+     // Show play again button and shift focus there - hide guess button and letters
+     guessLetter.blur();
     // button
     guessButton.classList.add('hide');
     // remaianig guesses
@@ -170,6 +185,7 @@ const startOver = function () {
     guessList.classList.add('hide');
     // play again
     playAgain.classList.remove('hide');
+    playAgain.focus();
 };
 
     // play again / reset
@@ -183,11 +199,11 @@ playAgain.addEventListener('click', function() {
     getWord();
 
     // button
-    guessButton.classList.add('hide');
+    guessButton.classList.remove('hide');
     // remaianig guesses
-    guessRemainingPara.classList.add('hide');
+    guessRemainingPara.classList.remove('hide');
     // undordered list
-    guessList.classList.add('hide');
+    guessList.classList.remove('hide');
     // play again button
     playAgain.classList.add('hide');
 
